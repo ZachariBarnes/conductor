@@ -2,6 +2,8 @@
 
 A simple interview notes keeper.
 
+[See it live](https://adept.work/conductor).
+
 ## Tech
 
 * React / cra
