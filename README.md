@@ -9,6 +9,7 @@ A simple interview notes keeper.
 * Tailwind
 * Redux
 * Hosted on Vercel
+* TypeScript in some files
 
 ### What is this for?
 
