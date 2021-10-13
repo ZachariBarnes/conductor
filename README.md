@@ -24,3 +24,8 @@ It's not a quiz. If you don't have an answer in mind, you should probably not as
 ### Can I add more questions?
 
 Feel free to submit PRs against this. If you fork and never tell anyone, that's fine too. But help everyone out and make this question set better. It's not rocket science. 
+
+### Contributors
+
+Please contribute. Either to how to program works or what the questions are. This is all licensed under MIT.
+
