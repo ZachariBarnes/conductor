@@ -1,14 +1,10 @@
 content:
-  - section: Computer Science
-    prompts:
-      - prompt: What is the difference between a list and set?
-      - prompt: How do you think in terms of Big-O?
-      - prompt:
   - section: Object Oriented Programming
     prompts:
-      - prompt: What is the difference between a class and object?
+      - prompt: What is the difference between an overload and an override?
       - prompt: What is encapsulation?
-      - prompt: What is polymorphism?
+      - prompt: What is an interface?
+      - prompt: What is the difference between an Interface vs an Abstract Class?
       - prompt: Describe a use case for inheritance
       - prompt: What are pros and cons of inheritance?
       - prompt: Describe some aspects of the SOLID principles
@@ -22,44 +18,71 @@ content:
       - prompt: What are the pros and cons of Object Oriented abstraction?
   - section: Java
     prompts:
+      - prompt: What is the "Final" keyword used for in Java?
       - prompt: What is the difference between an abstract class and an interface?
-      - prompt: Why is it often useful to use type List as an argument type versus ArrayList?
+      - prompt: What is a Java Stream?
+      - prompt: What are Generics in Java?
+      - prompt: Describe A Hashmap in Java. How does it compare with a Tree Map?
+       details: |
+          Hashmap - Quick random Access, Hashed values
+          Treemap - Ordered Access, It maintains ascending order based on the Keys.
       - prompt: ArrayList, LinkedList, Vector, Stack all implement the List interface; what are the major differences?
-      - prompt: Describe the behavior of the JVM when a Java program is first run
-      - prompt: What is the licensing situation with Orcale regarding the JVM?
-      - prompt: What is the value of the final keyword in Java?
+      - prompt: What are Exceptions in Java?
       - prompt: How do you make use of Exceptions in Java?
-      - prompt: How do you decide enums are right for a given use case?
+      - prompt: What is an enum and when would you use one?
+      - prompt: What is multi-threading?
+      - prompt: How can you allow multiple threads to work on the same object, Like a list?
+      - prompt: What are some of the pitfalls of multi-threading What if you failed to make your program thread-safe?
+        details: Race conditions, Deadlocks, unpredicatable consequences.
+      - prompt: How is Memory managed in Java?
+      - prompt: What does the Closeable or AutoClosable interface do?
+      - prompt: What is 'try with resources' in Java?
+      - prompt: What is an ORM (Hibernate, Spring JPA)?
+      - prompt: What are the pros and cons of using the `JdbcTemplate` vs an ORM like Spring Data or Hibernate?
+      - prompt: What is 'Transactional'?
+
+    - section: Spring
+    prompts:
+      - prompt: What are the benefits of using Spring?
+      - prompt: What makes Spring Boot easier to use than Spring?
+      - prompt: What is a spring bean?
+      - prompt: Describe the Service Container in Spring
+      - prompt: What is the use of profiles in spring boot?
+      - prompt: What is a spring acuator?
+      - prompt: List some common spring annotations and tell me what they do.
+
   - section: .NET
     prompts:
       - prompt: What are pros and cons of the CLR?
       - prompt: What are the broad capabilities of .NET Core?
-  - section: Design Patterns
-    prompts:
-      - prompt: Describe the singleton pattern
-      - prompt: Describe the factory pattern
-      - prompt: Describe the vistor pattern
-      - prompt: Describe the observer pattern
-      - prompt: Describe MVC
-      - prompt: Describe Inversion of Control
-      - prompt: Describe Dependency Injection
-      - prompt: Why are declarative code solutions often better than imperative solutions?
+      - prompt: What are Generics in C#?
+      - prompt: What are the common LINQ methods and what do they do?
+      - prompt: If I have a where-select does that produce the result right away?
+        details: No, Lazy evaluation
+      - prompt: What does the async keyword do?
+      - prompt: What does await do?
+      - prompt: What does an async function have to return?
+      - prompt: What is <Task T>?
+      - prompt: What is the differences between a Class and a Struct?
+
   - section: JavaScript
     prompts:
       - prompt: How are `==` and `===` equality operators differnt?
-      - prompt: Describe closures in JavaScript.
-      - prompt: What is a callback? What is a promise?
-      - prompt: Explain the `this` keyword in JavaScript, and common issues encountered with it.
-      - prompt: What is the differences between `call` and `apply` functions?
-      - prompt: What is the purpose of the `bind` function?
-      - prompt: Why is extending core prototypes a bad practice?
+      - prompt: What is the relationship of JavaScript to TypeScript?
+      - prompt: What is a callback?
+      - prompt: What is a promise?
+      - prompt: What are the three states of a promise?
+      - prompt: What is a prototype?
+      - prompt: What is the difference between Array.slice and Array.splice?
       - prompt: What is the difference between an ES6 arrow function and a regular function?
       - prompt: What are pros and cons of a JavaScript transpiler like Babel?
       - prompt: What is a major pros and cons of a package manager like NPM?
       - prompt: What is the broad difference in the JavaScript runtime environments, across Node, browser, others?
       - prompt: What is the event loop in JavaScript?
       - prompt: What are the purposes of well known ecosystem tools, like Eslint and Prettier?
-      - prompt: What is the relationship of JavaScript to TypeScript?
+      - prompt: Explain the `this` keyword in JavaScript, and common issues encountered with it.
+      - prompt: What is the purpose of the `bind` function?
+
   - section: Node
     prompts:
       - prompt: How is the single threaded nature of JavaScript different compared to other solutions?
@@ -68,11 +91,7 @@ content:
       - prompt: How are streams used in Node?
       - prompt: Describe the purpose of `module.exports`
       - prompt: Describe the purposes of well known ecosystem packages, like express, axios, lodash
-  - section: Spring
-    prompts:
-      - prompt: What makes Spring Boot easier to use than Spring?
-      - prompt: What are the pros and cons of using the `JdbcTemplate` vs an ORM like Spring Data or Hibernate?
-      - prompt: Describe the Service Container in Spring
+
   - section: React
     prompts:
       - prompt: What is the data binding model in React?
@@ -82,6 +101,8 @@ content:
       - prompt: Why does a component re-render?
       - prompt: How can re-rendering be controlled?
       - prompt: Describe a use case for a higher order component
+      - prompt: What are React hooks?
+      - prompt: What are the different parts of Redux?
       - prompt: How are render props used?
       - prompt: When should you use the `componentWillMount` lifecycle method?
       - prompt: Describe `Suspence` and its relationship to data loading and presentation
@@ -92,11 +113,13 @@ content:
       - prompt: Describe an organizational strategy for Redux related code
       - prompt: Describe how React can be used in web and native situations
       - prompt: What are the pros and cons of component level tests?
+
   - section: AngularJS
     prompts:
       - prompt: What is the data binding model in AngularJS?
       - prompt: How is dependency injection used?
       - prompt: What are major differences between a component and a controller?
+
   - section: Angular
     prompts:
       - prompt: What makes Angular different from AngularJS?
@@ -104,6 +127,7 @@ content:
       - prompt: What role do modules play?
       - prompt: What is the major differences between components and directives?
       - prompt: How does Angular's integration with TypeScript improve the Developer Experience?
+
   - section: Vue
     prompts:
       - prompt: What is the data binding model in Vue?
@@ -116,15 +140,22 @@ content:
       - prompt: Describe how the Vue CLI helps get a project started
       - prompt: Why is the SFC concept important in Vue?
       - prompt: Describe the use case for a render function
+
   - section: Database
     prompts:
       - prompt: Why is referential integrity important?
       - prompt: What are the use cases for Relational and Document based databases?
       - prompt: What are the risks of using SQL directly?
       - prompt: What are the benefits of using an abstraction ORM?
+      - prompt: What is the difference between and inner and outer join?
+      - prompt: How do you troubleshoot the performance of a slow SQL query?
+      - prompt: What is an Index?
+      - prompt: What is a Trigger?
+      - prompt: What is denormalization?
       - prompt: Describe eager and lazy loading
       - prompt: Why are database transactions useful?
       - prompt: What are pros and cons of free/open source and paid/proprietary databases? (MySQL vs Oracle)
+
   - section: Testing
     prompts:
       - prompt: How do you test your code so you feel confident in it?
@@ -132,11 +163,24 @@ content:
       - prompt: Suppose a client could only afford to do one of these; unit or integration testing, which would you suggest?
       - prompt: When would you intentionally not write test code?
       - prompt: Which do you like better, TDD or BDD?
+
   - section: Practice
     prompts:
       - prompt: What is your approach to refactoring?
       - prompt: How do you keep code DRY?
       - prompt: Describe a situation that needed more than print-based debugging
+
+    - section: Design Patterns
+    prompts:
+      - prompt: Describe the singleton pattern
+      - prompt: Describe the factory pattern
+      - prompt: Describe the vistor pattern
+      - prompt: Describe the observer pattern
+      - prompt: Describe MVC
+      - prompt: Describe Inversion of Control
+      - prompt: Describe Dependency Injection
+      - prompt: Why are declarative code solutions often better than imperative solutions?
+
   - section: Architecture
     todo: this needs a proper name
     prompts:
@@ -151,18 +195,21 @@ content:
       - prompt: How do you decide if eventual consistency is acceptable in a system?
       - prompt: What are your criteria for scaling a solution?
       - prompt: What are your criteria for choosing a protocol for over the wire? (XML, JSON, Protobuf)
+
   - section: Supervision
     prompts:
       - prompt: What kind of supervision have you provided?
       - prompt: What kind of supervision have you received?
       - prompt: How do you break down tasks for more junior team members?
       - prompt: How do you suummarize progress to more senior team members?
+
   - section: Mentoring
     prompts:
       - prompt: What kind of mentorship have you provided?
       - prompt: What kind of mentorship have you received?
       - prompt: How do you review code?
       - prompt: How do you pair-program?
+
   - section: Leadership
     prompts:
       - prompt: What kind of leadership helps you thrive?
