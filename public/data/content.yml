@@ -1,5 +1,6 @@
 content:
   - section: Object Oriented Programming
+    visible: true
     prompts:
       - prompt: What is the difference between an overload and an override?
       - prompt: What is encapsulation?
@@ -16,20 +17,23 @@ content:
           - Dependency inversion principle
       - prompt: What role does mutability play in object oriented design?
       - prompt: What are the pros and cons of Object Oriented abstraction?
+
   - section: Java
+    visible: true
     prompts:
       - prompt: What is the "Final" keyword used for in Java?
       - prompt: What is the difference between an abstract class and an interface?
       - prompt: What is a Java Stream?
       - prompt: What are Generics in Java?
       - prompt: Describe A Hashmap in Java. How does it compare with a Tree Map?
-       details: |
+        details: |
           Hashmap - Quick random Access, Hashed values
           Treemap - Ordered Access, It maintains ascending order based on the Keys.
       - prompt: ArrayList, LinkedList, Vector, Stack all implement the List interface; what are the major differences?
       - prompt: What are Exceptions in Java?
       - prompt: How do you make use of Exceptions in Java?
       - prompt: What is an enum and when would you use one?
+      - prompt: What is asynchronous programming?
       - prompt: What is multi-threading?
       - prompt: How can you allow multiple threads to work on the same object, Like a list?
       - prompt: What are some of the pitfalls of multi-threading What if you failed to make your program thread-safe?
@@ -41,7 +45,8 @@ content:
       - prompt: What are the pros and cons of using the `JdbcTemplate` vs an ORM like Spring Data or Hibernate?
       - prompt: What is 'Transactional'?
 
-    - section: Spring
+  - section: Spring
+    visible: true
     prompts:
       - prompt: What are the benefits of using Spring?
       - prompt: What makes Spring Boot easier to use than Spring?
@@ -66,6 +71,7 @@ content:
       - prompt: What is the differences between a Class and a Struct?
 
   - section: JavaScript
+    visible: true
     prompts:
       - prompt: How are `==` and `===` equality operators differnt?
       - prompt: What is the relationship of JavaScript to TypeScript?
@@ -93,6 +99,7 @@ content:
       - prompt: Describe the purposes of well known ecosystem packages, like express, axios, lodash
 
   - section: React
+    visible: true
     prompts:
       - prompt: What is the data binding model in React?
       - prompt: What are the major differences between controlled and unctrolled form inputs?
@@ -115,12 +122,14 @@ content:
       - prompt: What are the pros and cons of component level tests?
 
   - section: AngularJS
+    visible: true
     prompts:
       - prompt: What is the data binding model in AngularJS?
       - prompt: How is dependency injection used?
       - prompt: What are major differences between a component and a controller?
 
   - section: Angular
+    visible: true
     prompts:
       - prompt: What makes Angular different from AngularJS?
       - prompt: How does the Ahead of Time compiler improve performance?
@@ -142,10 +151,9 @@ content:
       - prompt: Describe the use case for a render function
 
   - section: Database
+    visible: true
     prompts:
-      - prompt: Why is referential integrity important?
       - prompt: What are the use cases for Relational and Document based databases?
-      - prompt: What are the risks of using SQL directly?
       - prompt: What are the benefits of using an abstraction ORM?
       - prompt: What is the difference between and inner and outer join?
       - prompt: How do you troubleshoot the performance of a slow SQL query?
@@ -154,9 +162,11 @@ content:
       - prompt: What is denormalization?
       - prompt: Describe eager and lazy loading
       - prompt: Why are database transactions useful?
+      - prompt: Why is referential integrity important?
       - prompt: What are pros and cons of free/open source and paid/proprietary databases? (MySQL vs Oracle)
 
   - section: Testing
+    visible: true
     prompts:
       - prompt: How do you test your code so you feel confident in it?
       - prompt: What is the purpose of unit testing? Integration testing? Functional testing? End-to-end testing?
@@ -170,7 +180,8 @@ content:
       - prompt: How do you keep code DRY?
       - prompt: Describe a situation that needed more than print-based debugging
 
-    - section: Design Patterns
+  - section: Design Patterns
+    visible: true
     prompts:
       - prompt: Describe the singleton pattern
       - prompt: Describe the factory pattern
@@ -183,6 +194,7 @@ content:
 
   - section: Architecture
     todo: this needs a proper name
+    visible: true
     prompts:
       - prompt: What are pros and cons of REST, SOAP, RPC?
       - prompt: What are differences between monoliths and microservices?

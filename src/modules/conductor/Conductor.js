@@ -44,22 +44,18 @@ export function Conductor() {
 
         <div className="container px-4 mx-auto">
           {data.content.map((dat) => {
+            console.log(dat);
             return (
               <div
                 id={slugify(dat.section)}
                 key={dat.section}
                 className="border-b-2 border-gray-600 last:border-b-0"
+                // onClick={console.log(`Clicked ${dat.setion}`)}
               >
                 <h2 className="mt-4 mb-4 text-lg font-bold">
                   <a href={`#${slugify(dat.section)}`}>{dat.section}</a>
                 </h2>
-                {dat.prompts.map((entry) => (
-                  <Entry
-                    key={entry.prompt}
-                    section={dat.section}
-                    entry={entry}
-                  />
-                ))}
+                {displaySection(dat)}
               </div>
             );
           })}
@@ -67,6 +63,24 @@ export function Conductor() {
       </div>
     </div>
   );
+}
+
+function displaySection(dat){
+  if(dat.visible)
+  {
+    const colors = ['white', 'lightgrey'];
+    return dat.prompts.map((entry) => (
+    <Entry 
+      key={entry.prompt}
+      section={dat.section}
+      entry={entry}
+      bgcolor={colors[dat.prompts.indexOf(entry)%2]}
+    />
+  ))
+}
+else {
+  return <div></div>
+}
 }
 
 function ConductorHeader({ menu, setMenu }) {
@@ -164,7 +178,7 @@ function getNotes(item) {
   return item && item.notes ? item.notes : "";
 }
 
-function Entry({ section, entry }) {
+function Entry({ section, entry, bgcolor }) {
   const item = useItem(section, entry.prompt);
   const { handleScoreSelected, handleScoreCleared, handleNotesChanged } =
     useItemEvents(section, entry.prompt);
@@ -179,6 +193,7 @@ function Entry({ section, entry }) {
       handleScoreCleared={handleScoreCleared}
       handleScoreSelected={handleScoreSelected}
       handleNotesChanged={handleNotesChanged}
+      bgcolor={bgcolor}
     />
   );
 }
@@ -191,12 +206,14 @@ function SingleEntry({
   handleScoreCleared,
   handleScoreSelected,
   handleNotesChanged,
+  bgcolor
 }) {
   const [addNotes, setAddNotes] = useState(false);
+  console.log("Mycolore:" + bgcolor);
   return (
     prompt && (
-      <div key={prompt} className="mb-4">
-        <div className="flex-row items-center justify-between md:flex">
+      <div key={prompt} className="mb-4" style={{backgroundColor: bgcolor, padding:5}}>
+        <div className="flex-row items-center justify-between md:flex" >
           <div className="w-full md:w-3/5">
             <p className="pr-4 text-base">{prompt}</p>
           </div>

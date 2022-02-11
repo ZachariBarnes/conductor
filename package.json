@@ -21,7 +21,7 @@
   },
   "scripts": {
     "start:tailwind": "tailwind -w -i ./src/global.css -o ./src/global.generated.css",
-    "start:app": "PORT=8724 react-scripts start",
+    "start:app": "react-scripts start",
     "start": "run-p start:tailwind start:app",
     "build:app": "react-scripts build",
     "build:tailwind": "tailwind -i ./src/global.css -o ./src/global.generated.css",

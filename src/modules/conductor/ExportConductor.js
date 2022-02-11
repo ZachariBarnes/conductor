@@ -14,17 +14,23 @@ export function ExportConductor() {
   console.log(groups);
   const content = Object.keys(groups)
     .map((group) => {
-      const a = `##### ${group}\n`;
+      let overallScore = 0;
+      let a = `##### ${group}\n`;
       const b = groups[group].map((item) => {
         let v = `* ${item.prompt}\n`;
         if (item.score) {
-          v += `  - ${Array(item.score).fill("★").join("")}\n`;
+          v += `    - ${Array(item.score).fill("★").join("")}`;
+          overallScore+=item.score;
         }
         if (item.notes) {
-          v += `  - ${item.notes}\n`;
+          v += `    - ${item.notes}`;
         }
         return v;
       });
+      overallScore = overallScore/groups[group].length;
+      if(overallScore>0){
+        a += getStars(overallScore);
+      }
       return [a, ...b].join("\n");
     })
     .join("\n");
@@ -50,4 +56,15 @@ export function ExportConductor() {
       </div>
     </div>
   );
+}
+
+const getStars = (score) => {
+  let stars = "";
+  for(var i = 1; i <= score; i++) {
+    stars += "★";
+  }
+  for(i;i<=5;i++) {
+    stars += "☆";
+  }
+  return stars;
 }
