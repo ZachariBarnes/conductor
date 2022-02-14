@@ -61,7 +61,6 @@ export function Conductor() {
                   <a href="#" 
                     title="Click to expand/collapse"
                     onClick={(e)=>{
-                      //toggleVisbile(data, dat, setData); 
                       visibility.visible=!visibility.visible;
                       setVisibleSections([...visibleSections]);
                       return false;
@@ -77,7 +76,8 @@ export function Conductor() {
     </div>
   );
 }
-
+sole.log(section);
+}
 
 function toggleVisbile(data, section, setData) {
   console.log(section);
@@ -87,8 +87,7 @@ function toggleVisbile(data, section, setData) {
     prompt.visible=visibility;
   });
   setData(data);
-  console.log(section);
-}
+  con
 
 function displaySection(dat, visibility){
   // if(dat.visible)

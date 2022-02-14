@@ -46,7 +46,7 @@ content:
       - prompt: What is 'Transactional'?
 
   - section: Spring
-    visible: true
+    visible: false
     prompts:
       - prompt: What are the benefits of using Spring?
       - prompt: What makes Spring Boot easier to use than Spring?
@@ -57,7 +57,7 @@ content:
       - prompt: List some common spring annotations and tell me what they do.
 
   - section: .NET
-    visible: true
+    visible: false
     prompts:
       - prompt: What are pros and cons of the CLR?
       - prompt: What are the broad capabilities of .NET Core?
@@ -72,7 +72,7 @@ content:
       - prompt: What is the differences between a Class and a Struct?
 
   - section: JavaScript
-    visible: true
+    visible: false
     prompts:
       - prompt: How are `==` and `===` equality operators differnt?
       - prompt: What is the relationship of JavaScript to TypeScript?
@@ -91,7 +91,7 @@ content:
       - prompt: What is the purpose of the `bind` function?
 
   - section: Node
-    visible: true
+    visible: false
     prompts:
       - prompt: How is the single threaded nature of JavaScript different compared to other solutions?
       - prompt: Describe examples of blocking and non-blocking Node APIs
@@ -101,7 +101,7 @@ content:
       - prompt: Describe the purposes of well known ecosystem packages, like express, axios, lodash
 
   - section: React
-    visible: true
+    visible: false
     prompts:
       - prompt: What is the data binding model in React?
       - prompt: What are the major differences between controlled and unctrolled form inputs?
@@ -124,14 +124,14 @@ content:
       - prompt: What are the pros and cons of component level tests?
 
   - section: AngularJS
-    visible: true
+    visible: false
     prompts:
       - prompt: What is the data binding model in AngularJS?
       - prompt: How is dependency injection used?
       - prompt: What are major differences between a component and a controller?
 
   - section: Angular
-    visible: true
+    visible: false
     prompts:
       - prompt: What makes Angular different from AngularJS?
       - prompt: How does the Ahead of Time compiler improve performance?
@@ -140,7 +140,7 @@ content:
       - prompt: How does Angular's integration with TypeScript improve the Developer Experience?
 
   - section: Vue
-    visible: true
+    visible: false
     prompts:
       - prompt: What is the data binding model in Vue?
       - prompt: What are the challenges of updating values of an array in a components state?
@@ -169,7 +169,7 @@ content:
       - prompt: What are pros and cons of free/open source and paid/proprietary databases? (MySQL vs Oracle)
 
   - section: Testing
-    visible: true
+    visible: false
     prompts:
       - prompt: How do you test your code so you feel confident in it?
       - prompt: What is the purpose of unit testing? Integration testing? Functional testing? End-to-end testing?
@@ -178,14 +178,14 @@ content:
       - prompt: Which do you like better, TDD or BDD?
 
   - section: Practice
-    visible: true
+    visible: false
     prompts:
       - prompt: What is your approach to refactoring?
       - prompt: How do you keep code DRY?
       - prompt: Describe a situation that needed more than print-based debugging
 
   - section: Design Patterns
-    visible: true
+    visible: false
     prompts:
       - prompt: Describe the singleton pattern
       - prompt: Describe the factory pattern
@@ -198,7 +198,7 @@ content:
 
   - section: Architecture
     todo: this needs a proper name
-    visible: true
+    visible: false
     prompts:
       - prompt: What are pros and cons of REST, SOAP, RPC?
       - prompt: What are differences between monoliths and microservices?
@@ -213,7 +213,7 @@ content:
       - prompt: What are your criteria for choosing a protocol for over the wire? (XML, JSON, Protobuf)
 
   - section: Supervision
-    visible: true
+    visible: false
     prompts:
       - prompt: What kind of supervision have you provided?
       - prompt: What kind of supervision have you received?
@@ -221,7 +221,7 @@ content:
       - prompt: How do you suummarize progress to more senior team members?
 
   - section: Mentoring
-    visible: true
+    visible: false
     prompts:
       - prompt: What kind of mentorship have you provided?
       - prompt: What kind of mentorship have you received?
@@ -229,7 +229,7 @@ content:
       - prompt: How do you pair-program?
 
   - section: Leadership
-    visible: true
+    visible: false
     prompts:
       - prompt: What kind of leadership helps you thrive?
       - prompt: How have you lead technical excellence?
