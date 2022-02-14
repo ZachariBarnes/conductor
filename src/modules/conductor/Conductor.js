@@ -50,13 +50,11 @@ export function Conductor() {
               visibleSections.push(visibility);
               setVisibleSections(visibleSections);
             }
-            // console.log(dat);
             return (
               <div
                 id={slugify(dat.section)}
                 key={dat.section}
                 className="border-b-2 border-gray-600 last:border-b-0"
-                // onClick={console.log(`Clicked ${dat.setion}`)}
               >
                 <h2 className="mt-4 mb-4 text-lg font-bold">
                   <a href="#" 
@@ -80,8 +78,7 @@ export function Conductor() {
 
 
 function displaySection(dat, visibility){
-  // if(dat.visible)
-  // {
+
     const colors = ['white', 'lightgrey'];
     return dat.prompts.map((entry) => (
       <Entry 
@@ -92,11 +89,6 @@ function displaySection(dat, visibility){
         visible={visibility.visible}
       />
     ))
-  // }
-  // else {
-  //   console.log("collapsed");
-  //   return <div></div>
-  // }
 }
 
 function ConductorHeader({ menu, setMenu }) {
