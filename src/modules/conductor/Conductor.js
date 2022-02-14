@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from "react";
 import yaml from "js-yaml";
 import classnames from "classnames";
@@ -60,7 +61,7 @@ export function Conductor() {
                 <h2 className="mt-4 mb-4 text-lg font-bold">
                   <a href="#" 
                     title="Click to expand/collapse"
-                    onClick={(e)=>{
+                    onClick={(_e)=>{
                       visibility.visible=!visibility.visible;
                       setVisibleSections([...visibleSections]);
                       return false;
