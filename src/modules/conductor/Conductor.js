@@ -76,18 +76,7 @@ export function Conductor() {
     </div>
   );
 }
-sole.log(section);
-}
 
-function toggleVisbile(data, section, setData) {
-  console.log(section);
-  const visibility = !section.visible;
-  section.visible=visibility;
-  section.prompts.forEach((prompt) => {
-    prompt.visible=visibility;
-  });
-  setData(data);
-  con
 
 function displaySection(dat, visibility){
   // if(dat.visible)
