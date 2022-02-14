@@ -57,6 +57,7 @@ content:
       - prompt: List some common spring annotations and tell me what they do.
 
   - section: .NET
+    visible: true
     prompts:
       - prompt: What are pros and cons of the CLR?
       - prompt: What are the broad capabilities of .NET Core?
@@ -90,6 +91,7 @@ content:
       - prompt: What is the purpose of the `bind` function?
 
   - section: Node
+    visible: true
     prompts:
       - prompt: How is the single threaded nature of JavaScript different compared to other solutions?
       - prompt: Describe examples of blocking and non-blocking Node APIs
@@ -138,6 +140,7 @@ content:
       - prompt: How does Angular's integration with TypeScript improve the Developer Experience?
 
   - section: Vue
+    visible: true
     prompts:
       - prompt: What is the data binding model in Vue?
       - prompt: What are the challenges of updating values of an array in a components state?
@@ -175,6 +178,7 @@ content:
       - prompt: Which do you like better, TDD or BDD?
 
   - section: Practice
+    visible: true
     prompts:
       - prompt: What is your approach to refactoring?
       - prompt: How do you keep code DRY?
@@ -209,6 +213,7 @@ content:
       - prompt: What are your criteria for choosing a protocol for over the wire? (XML, JSON, Protobuf)
 
   - section: Supervision
+    visible: true
     prompts:
       - prompt: What kind of supervision have you provided?
       - prompt: What kind of supervision have you received?
@@ -216,6 +221,7 @@ content:
       - prompt: How do you suummarize progress to more senior team members?
 
   - section: Mentoring
+    visible: true
     prompts:
       - prompt: What kind of mentorship have you provided?
       - prompt: What kind of mentorship have you received?
@@ -223,6 +229,7 @@ content:
       - prompt: How do you pair-program?
 
   - section: Leadership
+    visible: true
     prompts:
       - prompt: What kind of leadership helps you thrive?
       - prompt: How have you lead technical excellence?

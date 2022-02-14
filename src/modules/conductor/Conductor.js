@@ -21,7 +21,7 @@ import { ChrevronDown } from "../../components/icons/ChevronDown";
 export function Conductor() {
   const [data, setData] = useState();
   const [openMenu, setOpenMenu] = useState(true);
-
+  const [visibleSections, setVisibleSections] = useState([]);
   useEffect(() => {
     getData()
       .then((response) => response.data)
@@ -43,8 +43,13 @@ export function Conductor() {
         {openMenu && <SectionMenu content={data.content} menu={openMenu} />}
 
         <div className="container px-4 mx-auto">
-          {data.content.map((dat) => {
-            console.log(dat);
+          {data.content.map((dat, index) => {
+            let visibility = visibleSections[index] || { section:dat.section, visible: dat.visible };
+            if(index>visibleSections.length-1){
+              visibleSections.push(visibility);
+              setVisibleSections(visibleSections);
+            }
+            // console.log(dat);
             return (
               <div
                 id={slugify(dat.section)}
@@ -53,9 +58,17 @@ export function Conductor() {
                 // onClick={console.log(`Clicked ${dat.setion}`)}
               >
                 <h2 className="mt-4 mb-4 text-lg font-bold">
-                  <a href={`#${slugify(dat.section)}`}>{dat.section}</a>
+                  <a href="#" 
+                    title="Click to expand/collapse"
+                    onClick={(e)=>{
+                      //toggleVisbile(data, dat, setData); 
+                      visibility.visible=!visibility.visible;
+                      setVisibleSections([...visibleSections]);
+                      return false;
+                      }}>
+                     {dat.section} </a>
                 </h2>
-                {displaySection(dat)}
+                {displaySection(dat,visibility)}
               </div>
             );
           })}
@@ -65,22 +78,36 @@ export function Conductor() {
   );
 }
 
-function displaySection(dat){
-  if(dat.visible)
-  {
+
+function toggleVisbile(data, section, setData) {
+  console.log(section);
+  const visibility = !section.visible;
+  section.visible=visibility;
+  section.prompts.forEach((prompt) => {
+    prompt.visible=visibility;
+  });
+  setData(data);
+  console.log(section);
+}
+
+function displaySection(dat, visibility){
+  // if(dat.visible)
+  // {
     const colors = ['white', 'lightgrey'];
     return dat.prompts.map((entry) => (
-    <Entry 
-      key={entry.prompt}
-      section={dat.section}
-      entry={entry}
-      bgcolor={colors[dat.prompts.indexOf(entry)%2]}
-    />
-  ))
-}
-else {
-  return <div></div>
-}
+      <Entry 
+        key={entry.prompt}
+        section={dat.section}
+        entry={entry}
+        bgcolor={colors[dat.prompts.indexOf(entry)%2]}
+        visible={visibility.visible}
+      />
+    ))
+  // }
+  // else {
+  //   console.log("collapsed");
+  //   return <div></div>
+  // }
 }
 
 function ConductorHeader({ menu, setMenu }) {
@@ -89,7 +116,7 @@ function ConductorHeader({ menu, setMenu }) {
   );
   return (
     <div className={topnavClassnames}>
-      <button type="button" onClick={(e) => setMenu((p) => !p)}>
+      <button type="button" onClick={(e) => {console.log("Test:" + setMenu, menu); return setMenu((p) => !p)}}>
         menu
       </button>
     </div>
@@ -178,7 +205,7 @@ function getNotes(item) {
   return item && item.notes ? item.notes : "";
 }
 
-function Entry({ section, entry, bgcolor }) {
+function Entry({ section, entry, bgcolor, visible }) {
   const item = useItem(section, entry.prompt);
   const { handleScoreSelected, handleScoreCleared, handleNotesChanged } =
     useItemEvents(section, entry.prompt);
@@ -194,6 +221,7 @@ function Entry({ section, entry, bgcolor }) {
       handleScoreSelected={handleScoreSelected}
       handleNotesChanged={handleNotesChanged}
       bgcolor={bgcolor}
+      visible={visible}
     />
   );
 }
@@ -206,13 +234,14 @@ function SingleEntry({
   handleScoreCleared,
   handleScoreSelected,
   handleNotesChanged,
-  bgcolor
+  bgcolor,
+  visible
 }) {
   const [addNotes, setAddNotes] = useState(false);
-  console.log("Mycolore:" + bgcolor);
+  const displayStyle = visible ? "block" : "none" ;
   return (
     prompt && (
-      <div key={prompt} className="mb-4" style={{backgroundColor: bgcolor, padding:5}}>
+      <div key={prompt} className="mb-4" style={{backgroundColor: bgcolor, padding:5, display: displayStyle}}>
         <div className="flex-row items-center justify-between md:flex" >
           <div className="w-full md:w-3/5">
             <p className="pr-4 text-base">{prompt}</p>
