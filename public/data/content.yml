@@ -74,7 +74,7 @@ content:
   - section: JavaScript
     visible: false
     prompts:
-      - prompt: How are `==` and `===` equality operators differnt?
+      - prompt: How are `==` and `===` equality operators different?
       - prompt: What is the relationship of JavaScript to TypeScript?
       - prompt: What is a callback?
       - prompt: What is a promise?

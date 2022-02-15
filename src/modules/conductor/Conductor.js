@@ -56,17 +56,20 @@ export function Conductor() {
                 key={dat.section}
                 className="border-b-2 border-gray-600 last:border-b-0"
               >
-                <h2 className="mt-4 mb-4 text-lg font-bold">
-                  <a href="#" 
-                    title="Click to expand/collapse"
-                    onClick={(_e)=>{
-                      visibility.visible=!visibility.visible;
-                      setVisibleSections([...visibleSections]);
-                      return false;
-                      }}>
-                     {dat.section} </a>
-                </h2>
-                {displaySection(dat,visibility)}
+               <details {...getDetailsSection(visibility.visible)}>
+                  <summary>
+                    <button className="mt-4 mb-4 text-lg font-bold"
+                        title="Click to expand/collapse"
+                        onClick={(_e)=>{
+                          visibility.visible=!visibility.visible;
+                          setVisibleSections([...visibleSections]);
+                          return false;
+                          }}>
+                      {dat.section}
+                    </button>
+                  </summary>
+                  {displaySection(dat,visibility)}
+                </details>
               </div>
             );
           })}
@@ -76,6 +79,9 @@ export function Conductor() {
   );
 }
 
+function getDetailsSection(visible){
+  return visible ? {open:true} : {};
+}
 
 function displaySection(dat, visibility){
 
