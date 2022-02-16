@@ -8,6 +8,11 @@ export function updateNotes({ section, prompt, notes }) {
   return { type: UPDATE_NOTES, payload: { section, prompt, notes } };
 }
 
+export const UPDATE_WEIGHT = "UPDATE_WEIGHT";
+export function updateWeight({ section, prompt, weight }) {
+  return { type: UPDATE_WEIGHT, payload: { section, prompt, weight } };
+}
+
 export const REMOVE_ITEM = "REMOVE_ITEM";
 export function removeItem({ section, prompt }) {
   return { type: REMOVE_ITEM, payload: { section, prompt } };

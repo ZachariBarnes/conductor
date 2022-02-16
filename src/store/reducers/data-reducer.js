@@ -3,6 +3,7 @@ import {
   REMOVE_ITEM,
   RESET_APP,
   UPDATE_NOTES,
+  UPDATE_WEIGHT,
 } from "../actions/data-actions";
 
 function getInitialState() {
@@ -31,6 +32,22 @@ export function data(state = getInitialState(), action) {
         action.payload.section,
         action.payload.prompt
       );
+      return [...nextState, item];
+    }
+    case UPDATE_WEIGHT: {
+      const existing =
+        state.find(
+          (item) =>
+            item.section === action.payload.section &&
+            item.prompt === action.payload.prompt
+        ) || {};
+      const item = { ...existing, ...action.payload };
+      const nextState = remove(
+        state,
+        action.payload.section,
+        action.payload.prompt,
+      );
+      console.log([...nextState, item]);
       return [...nextState, item];
     }
     case REMOVE_ITEM: {

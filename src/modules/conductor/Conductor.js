@@ -12,12 +12,13 @@ import {
   removeItem,
   resetApp,
   updateNotes,
+  updateWeight,
 } from "../../store/actions/data-actions";
 import { Link } from "react-router-dom";
 import { ResizingTextarea } from "../../components/ResizingTextarea";
 import newlinebr from "newline-br";
 import { ChevronUp } from "../../components/icons/ChevronUp";
-import { ChrevronDown } from "../../components/icons/ChevronDown";
+import { ChevronDown } from "../../components/icons/ChevronDown";
 
 export function Conductor() {
   const [data, setData] = useState();
@@ -173,7 +174,14 @@ function useItemEvents(section, prompt) {
     [section, prompt, dispatch]
   );
 
-  return { handleScoreSelected, handleScoreCleared, handleNotesChanged };
+  const handleWeightChanged = React.useCallback(
+    function handleWeightChanged(value) {
+      dispatch(updateWeight({ section, prompt, weight: value }));
+    },
+    [section, prompt, dispatch]
+  );
+
+  return { handleScoreSelected, handleScoreCleared, handleNotesChanged, handleWeightChanged };
 }
 
 function useItem(section, prompt) {
@@ -188,22 +196,32 @@ function getScore(item) {
   return score;
 }
 
+function getWeight(item){
+  const weight = item && item.weight!==undefined ? item.weight : 1;
+  return weight;
+}
+
 function getNotes(item) {
   return item && item.notes ? item.notes : "";
 }
 
 function Entry({ section, entry, bgcolor, visible }) {
   const item = useItem(section, entry.prompt);
-  const { handleScoreSelected, handleScoreCleared, handleNotesChanged } =
+  const { handleScoreSelected, handleScoreCleared, 
+    handleNotesChanged, handleWeightChanged } =
     useItemEvents(section, entry.prompt);
   const score = getScore(item);
   const notes = getNotes(item);
+  const weight = getWeight(item);
   return (
     <MemoSingleEntry
+      entry={entry}
       prompt={entry.prompt}
       section={section}
       score={score}
       notes={notes}
+      weight={weight}
+      handleWeightChanged={handleWeightChanged}
       handleScoreCleared={handleScoreCleared}
       handleScoreSelected={handleScoreSelected}
       handleNotesChanged={handleNotesChanged}
@@ -213,11 +231,33 @@ function Entry({ section, entry, bgcolor, visible }) {
   );
 }
 
+function getWeightWidget(promptObj, prompt, handleWeightChanged, weight, setWeight){
+  return(
+    <div style={{flexWrap:'wrap', flexDirection:'row'}}>
+      <button className="w-4 h-4" 
+        style={{display: 'inline-block'}}
+        onClick={(e)=>{weight++; handleWeightChanged(weight); setWeight(weight)}}>
+        <ChevronUp/>
+      </button>
+      <p style={{display: 'inline-block', padding:2.5}}>{weight}</p>
+      <button className="w-4 h-4" 
+        style={{display: 'inline-block'}}
+        onClick={(e)=>{if(weight){weight--}; handleWeightChanged(weight); setWeight(weight)}}>
+        <ChevronDown size="4" />
+      </button>
+      <p className="pr-4 text-base" style={{display: 'inline-block', padding:5}}>{prompt}</p>
+    </div>
+  )
+}
+
 function SingleEntry({
+  entry,
   prompt,
   section,
   score,
   notes,
+  weight,
+  handleWeightChanged,
   handleScoreCleared,
   handleScoreSelected,
   handleNotesChanged,
@@ -225,13 +265,14 @@ function SingleEntry({
   visible
 }) {
   const [addNotes, setAddNotes] = useState(false);
+  const [stateWeight, setWeight] = useState(weight); 
   const displayStyle = visible ? "block" : "none" ;
   return (
     prompt && (
       <div key={prompt} className="mb-4" style={{backgroundColor: bgcolor, padding:5, display: displayStyle}}>
         <div className="flex-row items-center justify-between md:flex" >
           <div className="w-full md:w-3/5">
-            <p className="pr-4 text-base">{prompt}</p>
+            {getWeightWidget(entry, prompt, handleWeightChanged, stateWeight, setWeight)}
           </div>
           <div className="flex items-center w-full space-x-2 md:w-2/5 md:justify-end sm:justify-center sm:self-center">
             <ScoreMeter
@@ -250,7 +291,7 @@ function SingleEntry({
                 </div>
               ) : (
                 <div className="w-4 h-4">
-                  <ChrevronDown size="4" />
+                  <ChevronDown size="4" />
                 </div>
               )}
               📝

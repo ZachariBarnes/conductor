@@ -17,17 +17,18 @@ export function ExportConductor() {
       let overallScore = 0;
       let a = `##### ${group}\n`;
       const b = groups[group].map((item) => {
+        let weight = item.weight!==undefined ? item.weight : 1;
         let v = `* ${item.prompt}\n`;
         if (item.score) {
           v += `    - ${Array(item.score).fill("★").join("")}`;
-          overallScore+=item.score;
+          overallScore+=(item.score*weight);
         }
         if (item.notes) {
           v += `    - ${item.notes}`;
         }
         return v;
       });
-      overallScore = overallScore/groups[group].length;
+      overallScore = Math.round(overallScore/groups[group].length);
       if(overallScore>0){
         a += getStars(overallScore);
       }
@@ -48,7 +49,8 @@ export function ExportConductor() {
         </div>
 
         {/* <div> */}
-        <textarea
+        <textarea 
+          readOnly
           className="flex-1 flex-grow w-full h-full p-2 my-4 border-2 border-gray-200"
           value={content}
         ></textarea>
@@ -59,6 +61,9 @@ export function ExportConductor() {
 }
 
 const getStars = (score) => {
+  if(score>5){
+    score=5;
+  }
   let stars = "";
   for(var i = 1; i <= score; i++) {
     stars += "★";
