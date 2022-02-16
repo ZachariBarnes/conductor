@@ -69,6 +69,7 @@ export function Conductor() {
                       {dat.section}
                     </button>
                   </summary>
+                  <b>Weight</b>
                   {displaySection(dat,visibility)}
                 </details>
               </div>
