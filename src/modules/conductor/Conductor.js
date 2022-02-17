@@ -7,6 +7,8 @@ import { AppLink } from "../../components/AppLink";
 import { slugify } from "../../helpers/utils";
 import { ScoreMeter } from "../../components/ScoreMeter";
 import { useSelector, useDispatch } from "react-redux";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 import {
   addItem,
   removeItem,
@@ -232,21 +234,22 @@ function Entry({ section, entry, bgcolor, visible }) {
   );
 }
 
+
 function getWeightWidget(promptObj, prompt, handleWeightChanged, weight, setWeight){
   return(
     <div style={{flexWrap:'wrap', flexDirection:'row'}}>
-      <button className="w-4 h-4" 
+       <button className="w-4 h-4" 
         style={{display: 'inline-block'}}
         onClick={(e)=>{weight++; handleWeightChanged(weight); setWeight(weight)}}>
         <ChevronUp/>
       </button>
-      <p style={{display: 'inline-block', padding:2.5}}>{weight}</p>
+        <p style={{display: 'inline-block', padding:2.5}}>{weight}</p>
       <button className="w-4 h-4" 
         style={{display: 'inline-block'}}
         onClick={(e)=>{if(weight){weight--}; handleWeightChanged(weight); setWeight(weight)}}>
         <ChevronDown size="4" />
       </button>
-      <p className="pr-4 text-base" style={{display: 'inline-block', padding:5}}>{prompt}</p>
+        <p className="pr-4 text-base" style={{display: 'inline-block', padding:5}}>{prompt}</p>
     </div>
   )
 }
@@ -268,13 +271,19 @@ function SingleEntry({
   const [addNotes, setAddNotes] = useState(false);
   const [stateWeight, setWeight] = useState(weight); 
   const displayStyle = visible ? "block" : "none" ;
+  const renderTooltip = props => (
+    <Tooltip {...props} className="flex-row items-center padding-2 justify-between w-full md:w-2/5 text-sm text-center text-white bg-gray-600 rounded shadow-sm hover:bg-gray-700">{entry.details}</Tooltip>
+  );
+
   return (
     prompt && (
       <div key={prompt} className="mb-4" style={{backgroundColor: bgcolor, padding:5, display: displayStyle}}>
         <div className="flex-row items-center justify-between md:flex" >
+        <OverlayTrigger placement="bottom" delay={{ show: 250, hide: 400 }} overlay={renderTooltip}>
           <div className="w-full md:w-3/5">
             {getWeightWidget(entry, prompt, handleWeightChanged, stateWeight, setWeight)}
           </div>
+          </OverlayTrigger>
           <div className="flex items-center w-full space-x-2 md:w-2/5 md:justify-end sm:justify-center sm:self-center">
             <ScoreMeter
               score={score}

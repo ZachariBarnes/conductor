@@ -10,11 +10,11 @@ content:
       - prompt: What are pros and cons of inheritance?
       - prompt: Describe some aspects of the SOLID principles
         details: |
-          - Single Responsbility principle
-          - Open-closed principle
-          - Liskov substitution principle (multiple-contracts)
-          - Interface segregation principle
-          - Dependency inversion principle
+          Single Responsbility principle,
+          Open-closed principle,
+          Liskov substitution principle (multiple-contracts),
+          Interface segregation principle,
+          Dependency inversion principle
       - prompt: What role does mutability play in object oriented design?
       - prompt: What are the pros and cons of Object Oriented abstraction?
 
@@ -25,19 +25,24 @@ content:
       - prompt: What is the difference between an abstract class and an interface?
       - prompt: What is a Java Stream?
       - prompt: What are Generics in Java?
+      - prompt: What is a hashmap and why is it useful?
       - prompt: Describe A Hashmap in Java. How does it compare with a Tree Map?
         details: |
-          Hashmap - Quick random Access, Hashed values
+          Hashmap - Quick random Access, Hashed values,
           Treemap - Ordered Access, It maintains ascending order based on the Keys.
       - prompt: ArrayList, LinkedList, Vector, Stack all implement the List interface; what are the major differences?
       - prompt: What are Exceptions in Java?
       - prompt: How do you make use of Exceptions in Java?
       - prompt: What is an enum and when would you use one?
       - prompt: What is asynchronous programming?
+      - prompt: What are Futures in Java?
       - prompt: What is multi-threading?
       - prompt: How can you allow multiple threads to work on the same object, Like a list?
       - prompt: What are some of the pitfalls of multi-threading What if you failed to make your program thread-safe?
         details: Race conditions, Deadlocks, unpredicatable consequences.
+      - prompt: What are the lifecycle states of a Thread in Java?
+        details: New, Runnable, Blocked, Waiting, Terminated
+        weight: 0
       - prompt: How is Memory managed in Java?
       - prompt: What does the Closeable or AutoClosable interface do?
       - prompt: What is 'try with resources' in Java?
@@ -56,20 +61,27 @@ content:
       - prompt: What is a spring acuator?
       - prompt: List some common spring annotations and tell me what they do.
 
-  - section: .NET
+  - section: .NET/C#
     visible: false
     prompts:
-      - prompt: What are pros and cons of the CLR?
-      - prompt: What are the broad capabilities of .NET Core?
+      - prompt: What is boxing and unboxing in C#?
+      - prompt: What is the difference between a 'break' statement and a 'continue' statement?
+      - prompt: What is the difference between 'readonly' and 'const'?
+      - prompt: What is thie difference between 'ref' and 'out' keywords?
+      - prompt: What is the differences between a Class and a Struct?
+      - prompt: What are Delegates in C# and what are they used for?
+      - prompt: What is a sealed Class?
+      - prompt: What is an object pool in .Net and why would you want to use one?
       - prompt: What are Generics in C#?
+      - prompt: What is a Dictionary and why is is useful?
       - prompt: What are the common LINQ methods and what do they do?
       - prompt: If I have a where-select does that produce the result right away?
         details: No, Lazy evaluation
-      - prompt: What does the async keyword do?
-      - prompt: What does await do?
+      - prompt: What does the async and await keywords do?
       - prompt: What does an async function have to return?
       - prompt: What is <Task T>?
-      - prompt: What is the differences between a Class and a Struct?
+      - prompt: What is an extension method and how do you use one?
+      - prompt: What is IDisposable or the Dispose/finalize method used for in C#?
 
   - section: JavaScript
     visible: false
@@ -80,10 +92,10 @@ content:
       - prompt: What is a promise?
       - prompt: What are the three states of a promise?
       - prompt: What is a prototype?
+      - prompt: What is NPM?
       - prompt: What is the difference between Array.slice and Array.splice?
       - prompt: What is the difference between an ES6 arrow function and a regular function?
       - prompt: What are pros and cons of a JavaScript transpiler like Babel?
-      - prompt: What is a major pros and cons of a package manager like NPM?
       - prompt: What is the broad difference in the JavaScript runtime environments, across Node, browser, others?
       - prompt: What is the event loop in JavaScript?
       - prompt: What are the purposes of well known ecosystem tools, like Eslint and Prettier?
@@ -94,6 +106,7 @@ content:
     visible: false
     prompts:
       - prompt: How is the single threaded nature of JavaScript different compared to other solutions?
+      - prompt: What are some common Node packages or Libraries and what do they do?
       - prompt: Describe examples of blocking and non-blocking Node APIs
       - prompt: How do you access environment variables in Node?
       - prompt: How are streams used in Node?
@@ -104,11 +117,13 @@ content:
     visible: false
     prompts:
       - prompt: What is the data binding model in React?
-      - prompt: What are the major differences between controlled and unctrolled form inputs?
+      - prompt: What are the major differences between controlled and uncontrolled components?
       - prompt: Why is the key property used?
       - prompt: Why are props effectively immutable?
       - prompt: Why does a component re-render?
       - prompt: How can re-rendering be controlled?
+      - prompt: What is Redux?
+      - prompt: What are the three different parts of Redux?
       - prompt: Describe a use case for a higher order component
       - prompt: What are React hooks?
       - prompt: What are the different parts of Redux?
@@ -157,6 +172,7 @@ content:
     visible: true
     prompts:
       - prompt: What are the use cases for Relational and Document based databases?
+      - prompt: Whats the difference between a Primary Key and a Foreign Key?
       - prompt: What are the benefits of using an abstraction ORM?
       - prompt: What is the difference between and inner and outer join?
       - prompt: How do you troubleshoot the performance of a slow SQL query?

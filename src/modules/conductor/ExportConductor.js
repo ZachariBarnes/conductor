@@ -15,6 +15,7 @@ export function ExportConductor() {
   const content = Object.keys(groups)
     .map((group) => {
       let overallScore = 0;
+      let addedWeight = 0;
       let a = `##### ${group}\n`;
       const b = groups[group].map((item) => {
         let weight = item.weight!==undefined ? item.weight : 1;
@@ -22,13 +23,14 @@ export function ExportConductor() {
         if (item.score) {
           v += `    - ${Array(item.score).fill("★").join("")}`;
           overallScore+=(item.score*weight);
+          addedWeight+=weight>1?weight:0;
         }
         if (item.notes) {
           v += `    - ${item.notes}`;
         }
         return v;
       });
-      overallScore = Math.round(overallScore/groups[group].length);
+      overallScore = Math.round(overallScore/(groups[group].length+addedWeight));
       if(overallScore>0){
         a += getStars(overallScore);
       }
