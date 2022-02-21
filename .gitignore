@@ -24,3 +24,5 @@ yarn-error.log*
 
 src/global.generated.css
 .vercel
+
+package.json
