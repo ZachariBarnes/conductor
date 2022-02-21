@@ -271,9 +271,22 @@ function SingleEntry({
   const [addNotes, setAddNotes] = useState(false);
   const [stateWeight, setWeight] = useState(weight); 
   const displayStyle = visible ? "block" : "none" ;
-  const renderTooltip = props => (
-    <Tooltip {...props} className="flex-row items-center padding-2 justify-between w-full md:w-2/5 text-sm text-center text-white bg-gray-600 rounded shadow-sm hover:bg-gray-700">{entry.details}</Tooltip>
-  );
+  const renderTooltip = props =>{ 
+    const lines = entry.details? entry.details.split(","): [];
+    return entry.details ? (
+    <Tooltip {...props} 
+    className="flex-row items-center p-2 justify-start w-full md:w-2/5 text-base text-left text-white bg-gray-600 rounded">
+     {lines.length ? getDetails(lines) : entry.details}
+      </Tooltip>
+  ): <div style={{display:'none'}}/>};
+
+  const getDetails = (lines) =>{
+  return lines.map((line) => (
+    <div key={line}>
+      {line}
+      <br/>
+    </div>
+  ))};
 
   return (
     prompt && (
@@ -305,6 +318,14 @@ function SingleEntry({
                 </div>
               )}
               📝
+            </button>
+
+            <button
+            type="button"
+            onClick={(event) =>handleScoreCleared({section, prompt})}
+            className="p-2 bg-gray-100 rounded hover:bg-gray-200"
+            >
+              ❌
             </button>
           </div>
         </div>

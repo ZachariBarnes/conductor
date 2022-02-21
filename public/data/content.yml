@@ -212,21 +212,39 @@ content:
       - prompt: Describe Dependency Injection
       - prompt: Why are declarative code solutions often better than imperative solutions?
 
+  - section: WebServices
+    visible: true
+    prompts:
+      - prompt: What are The different HTTP Request methods used in REST?
+        details: GET, PUT, POST, PATCH, DELETE, OPTIONS, HEAD
+      - prompt: What are the differences between PUT, POST and GET in REST?
+        details: GET retrieves data and does not modify state, 
+          PUT is for updating an entire entity and is idempotent,
+          POST is for creating a new entity, 
+          PATCH is for updating a single field, 
+          DELETE is for deleting an entity, 
+          OPTIONS is for getting a list of valid request types, 
+          HEAD is for checking the headers that an identical GET request would return.
+      - prompt: What does it mean to be restful?
+      - prompt: What are pros and cons of REST vs SOAP?
+      - prompt: In SOAP what is a WSDL?
+      - prompt: What is RPC?
+      - prompt: What do you consider when communicating between systems?
+      - prompt: What are your criteria for choosing a protocol for over the wire? (XML, JSON, Protobuf)
+
   - section: Architecture
     todo: this needs a proper name
     visible: false
     prompts:
-      - prompt: What are pros and cons of REST, SOAP, RPC?
       - prompt: What are differences between monoliths and microservices?
-      - prompt: What do you consider when communicating between systems?
       - prompt: How do you separate systems into domains?
+      - prompt: What is an event streaming architecture and why would you use one?
       - prompt: When evaluating interfaces between systems, how do you decide on synchronous versus asynchronous interfaces?
       - prompt: When evaluating interfaces between systems, how do you agree on those interfaces and communicate them between systems?
       - prompt: How do you think differently about systems continuous integration, continuous delivery, and continuous deployment is or is not implemented?
       - prompt: Why are the 12 factor app principles a useful guide?
       - prompt: How do you decide if eventual consistency is acceptable in a system?
       - prompt: What are your criteria for scaling a solution?
-      - prompt: What are your criteria for choosing a protocol for over the wire? (XML, JSON, Protobuf)
 
   - section: Supervision
     visible: false

@@ -65,9 +65,9 @@ export function ScoreMeter({
       <button
         type="button"
         onClick={(event) => handleClear(event)}
-        className="p-2 bg-gray-100 rounded hover:bg-gray-200"
-      >
-        ❌
+        className="p-2 bg-gray-100 text-lg rounded hover:bg-gray-200"
+        >
+          ↻
       </button>
     </div>
   );

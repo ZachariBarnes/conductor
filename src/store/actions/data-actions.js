@@ -15,6 +15,7 @@ export function updateWeight({ section, prompt, weight }) {
 
 export const REMOVE_ITEM = "REMOVE_ITEM";
 export function removeItem({ section, prompt }) {
+  console.log(`Remove item: Section: ${section}, Prompt: ${prompt}`);
   return { type: REMOVE_ITEM, payload: { section, prompt } };
 }
 
