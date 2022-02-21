@@ -1,4 +1,6 @@
 import axios from "axios";
+const data = require('/data/content.json');
+console.log(data);
 
 export function getData() {
   try{
@@ -7,9 +9,6 @@ export function getData() {
   catch (error) {
     console.log(error);
     console.log("trying to load from JSON");
-    fetch("/data/content.json")
-    .then(response => {
-   return response.json();
-})
+    return data;
   }
 }
