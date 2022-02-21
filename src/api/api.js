@@ -1,5 +1,5 @@
 // import axios from "axios";
-const data = require('/data/content.json');
+const data = require('./src/data/content.json');
 console.log(data);
 
 export function getData() {
