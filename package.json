@@ -2,6 +2,7 @@
   "name": "perspicacious-conductor",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://zacharibarnes.github.io/conductor/",
   "dependencies": {
     "axios": "^0.22.0",
     "classnames": "^2.3.1",
