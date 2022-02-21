@@ -345,21 +345,6 @@
         ]
       },
       {
-        "section": "AngularJS",
-        "visible": false,
-        "prompts": [
-          {
-            "prompt": "What is the data binding model in AngularJS?"
-          },
-          {
-            "prompt": "How is dependency injection used?"
-          },
-          {
-            "prompt": "What are major differences between a component and a controller?"
-          }
-        ]
-      },
-      {
         "section": "Angular",
         "visible": false,
         "prompts": [
@@ -377,6 +362,30 @@
           },
           {
             "prompt": "How does Angular's integration with TypeScript improve the Developer Experience?"
+          },
+          {
+            "prompt": "What is the data binding model in AngularJS?"
+          },
+          {
+            "prompt": "How is dependency injection used?"
+          },
+          {
+            "prompt": "What are major differences between a component and a controller?"
+          },
+          {
+            "prompt": "What is an observable?",
+            "details":"An Observable is a unique Object similar to a Promise that can help manage async code.\nObservables are not part of the JavaScript language so we need to rely on a popular Observable library called RxJS.\nThe observables are created using new keyword."
+          },
+          {
+            "prompt": "Difference between promise and observable?"
+          },
+          {
+            "prompt": "What are angular Hooks? Can you name a few and their purpose?",
+            "details": "NgOnInit, NgOnChanges, NgDoCheck, NgOnDestroy, \nNgAfterViewInit, NgAfterViewChecked, NgAfterContentInit, NgAfterContentChecked"
+          },
+          {
+            "prompt": "What runs first ngOnInit or the Constructor?",
+            "details": "Constructor : Called first time before ngOnInit\nNgOnInit : called after constructor and after first ngOnChanges()"
           }
         ]
       },
@@ -439,10 +448,16 @@
             "prompt": "What is an Index?"
           },
           {
+            "prompt": "What is the cost of adding Indices? Explain the tradeoffs."
+          },
+          {
             "prompt": "What is a Trigger?"
           },
           {
             "prompt": "What is denormalization?"
+          },
+          {
+            "prompt": "What is normalization?"
           },
           {
             "prompt": "Describe eager and lazy loading"
@@ -534,7 +549,7 @@
           },
           {
             "prompt": "What are the differences between PUT, POST and GET in REST?",
-            "details": "GET retrieves data and does not modify state\nPUT is for updating an entire entity and is idempotent\nPOST is for creating a new entity\nPATCH is for updating a single field"
+            "details": "GET retrieves data and does not modify state\nPUT is for updating an entire entity and is idempotent\nPOST is for creating a new entity"
           },
           {
             "prompt": "What does it mean to be restful?"
