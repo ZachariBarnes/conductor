@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from "react";
-import yaml from "js-yaml";
 import classnames from "classnames";
 import { getData } from "../../api/api";
 import { AppLink } from "../../components/AppLink";
@@ -27,18 +26,15 @@ export function Conductor() {
   const [openMenu, setOpenMenu] = useState(true);
   const [visibleSections, setVisibleSections] = useState([]);
   useEffect(() => {
-    getData()
-      .then((response) => response.data)
-      .then((d) => {
-        const dd = yaml.load(d);
-        setData(dd);
-      });
+    const jsonData = getData().data;
+    setData(jsonData);
   }, []);
 
   if (!data) {
     return null;
   }
 
+  console.log("data", data)
   return (
     <div>
       <ConductorHeader menu={openMenu} setMenu={setOpenMenu} />
@@ -272,7 +268,7 @@ function SingleEntry({
   const [stateWeight, setWeight] = useState(weight); 
   const displayStyle = visible ? "block" : "none" ;
   const renderTooltip = props =>{ 
-    const lines = entry.details? entry.details.split(","): [];
+    const lines = entry.details? entry.details.split("\n"): [];
     return entry.details ? (
     <Tooltip {...props} 
     className="flex-row items-center p-2 justify-start w-full md:w-2/5 text-base text-left text-white bg-gray-600 rounded">
@@ -281,10 +277,10 @@ function SingleEntry({
   ): <div style={{display:'none'}}/>};
 
   const getDetails = (lines) =>{
-  return lines.map((line) => (
+  return lines.map((line, i) => (
     <div key={line}>
       {line}
-      <br/>
+      {i < lines.length - 1 ? <br/> : ''}
     </div>
   ))};
 

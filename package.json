@@ -2,12 +2,10 @@
   "name": "perspicacious-conductor",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://zacharibarnes.github.io/conductor/",
   "dependencies": {
     "axios": "^0.22.0",
     "classnames": "^2.3.1",
     "hashids": "^2.2.8",
-    "js-yaml": "^4.1.0",
     "lodash": "^4.17.21",
     "newline-br": "^2.0.0",
     "react": "^17.0.2",
