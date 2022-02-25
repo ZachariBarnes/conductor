@@ -5,15 +5,18 @@ import { getData } from "../../api/api";
 import { AppLink } from "../../components/AppLink";
 import { slugify } from "../../helpers/utils";
 import { ScoreMeter } from "../../components/ScoreMeter";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch, useStore } from "react-redux";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import {
+  addItemNotes,
   addItem,
+  clearItem,
   removeItem,
   resetApp,
   updateNotes,
   updateWeight,
+  addSection,
 } from "../../store/actions/data-actions";
 import { Link } from "react-router-dom";
 import { ResizingTextarea } from "../../components/ResizingTextarea";
@@ -22,28 +25,45 @@ import { ChevronUp } from "../../components/icons/ChevronUp";
 import { ChevronDown } from "../../components/icons/ChevronDown";
 
 export function Conductor() {
-  const [data, setData] = useState();
   const [openMenu, setOpenMenu] = useState(true);
   const [visibleSections, setVisibleSections] = useState([]);
+  const sections = useSelector((state) => state.data)
   useEffect(() => {
-    const jsonData = getData().data;
-    setData(jsonData);
+    // const jsonData = getData().data;
+    //setData(jsonData);
+
   }, []);
 
-  if (!data) {
-    return null;
+  if (!sections || !sections.length) {
+    const jsonData = getData().data;
+    //setData(jsonData);
+    jsonData.content.forEach(function useSections(section){
+        const dispatch = useDispatch();
+        const handleNewSection = React.useCallback(
+          function handleAddSection(value) {
+            dispatch(addSection({ section, score: value }));
+          },
+          [section, dispatch]
+        );
+      handleNewSection(section);
+    });
+    // setData(content);
   }
 
-  console.log("data", data)
+  // console.log("data", data);
+  // console.log("state",content)
   return (
     <div>
       <ConductorHeader menu={openMenu} setMenu={setOpenMenu} />
 
       <div className="flex px-4">
-        {openMenu && <SectionMenu content={data.content} menu={openMenu} />}
+        {openMenu && <SectionMenu content={sections} menu={openMenu} />}
 
         <div className="container px-4 mx-auto">
-          {data.content.map((dat, index) => {
+          {sections.map((dat, index) => {
+            // console.log("dat", dat);
+            // if((typeof dat) === "object")
+            //   console.log(Object.keys(dat));
             let visibility = visibleSections[index] || { section:dat.section, visible: dat.visible };
             if(index>visibleSections.length-1){
               visibleSections.push(visibility);
@@ -79,12 +99,14 @@ export function Conductor() {
   );
 }
 
+
 function getDetailsSection(visible){
   return visible ? {open:true} : {};
 }
 
-function displaySection(dat, visibility){
-
+function displaySection(dat, visibility, data){
+  // console.log("dat:", dat);
+  try{
     const colors = ['white', 'lightgrey'];
     return dat.prompts.map((entry) => (
       <Entry 
@@ -95,6 +117,12 @@ function displaySection(dat, visibility){
         visible={visibility.visible}
       />
     ))
+  }catch(e){
+    console.log("Error Maping over objects", e);
+    console.log("dat:", dat);
+    console.log("data");
+    console.log(data);
+  }
 }
 
 function ConductorHeader({ menu, setMenu }) {
@@ -151,17 +179,17 @@ function SectionMenu({ content, menu }) {
 
 function useItemEvents(section, prompt) {
   const dispatch = useDispatch();
-
+  
   const handleScoreSelected = React.useCallback(
-    function handleScoreSelected(value) {
-      dispatch(addItem({ section, prompt, score: value }));
+    function handleScoreSelected(score) {
+      dispatch(addItemNotes({ section, prompt, score: score }));
     },
     [section, prompt, dispatch]
   );
 
   const handleScoreCleared = React.useCallback(
     function handleScoreCleared() {
-      dispatch(removeItem({ section, prompt }));
+      dispatch(clearItem({ section, prompt }));
     },
     [section, prompt, dispatch]
   );
@@ -180,7 +208,23 @@ function useItemEvents(section, prompt) {
     [section, prompt, dispatch]
   );
 
-  return { handleScoreSelected, handleScoreCleared, handleNotesChanged, handleWeightChanged };
+  //TODO Not done yet
+  const handleAdd = React.useCallback(
+    function handleAddPrompt(value) {
+      dispatch(addItem({ section, prompt }));
+    },
+    [section, prompt, dispatch]
+  );
+
+  const handleDelete = React.useCallback(
+    function handleRemovePrompt() {
+      dispatch(removeItem({ section, prompt}));
+    },
+    [section, prompt, dispatch]
+  );
+
+  return { handleScoreSelected, handleScoreCleared, handleNotesChanged,
+     handleWeightChanged, handleAdd, handleDelete };
 }
 
 function useItem(section, prompt) {
@@ -191,8 +235,15 @@ function useItem(section, prompt) {
 }
 
 function getScore(item) {
+  if (item) {
+    console.log(item);
+  }
   const score = item && item.score ? item.score : 0;
+  if(score)
+  console.log(score);
+
   return score;
+  
 }
 
 function getWeight(item){
@@ -205,9 +256,9 @@ function getNotes(item) {
 }
 
 function Entry({ section, entry, bgcolor, visible }) {
-  const item = useItem(section, entry.prompt);
+  const item = useItem(section, entry);
   const { handleScoreSelected, handleScoreCleared, 
-    handleNotesChanged, handleWeightChanged } =
+    handleNotesChanged, handleWeightChanged, handleAdd, handleDelete } =
     useItemEvents(section, entry.prompt);
   const score = getScore(item);
   const notes = getNotes(item);
@@ -217,13 +268,15 @@ function Entry({ section, entry, bgcolor, visible }) {
       entry={entry}
       prompt={entry.prompt}
       section={section}
-      score={score}
+      score={entry.score}
       notes={notes}
       weight={weight}
       handleWeightChanged={handleWeightChanged}
       handleScoreCleared={handleScoreCleared}
       handleScoreSelected={handleScoreSelected}
       handleNotesChanged={handleNotesChanged}
+      handleDelete={handleDelete}
+      handleAdd={handleAdd}
       bgcolor={bgcolor}
       visible={visible}
     />
@@ -261,6 +314,8 @@ function SingleEntry({
   handleScoreCleared,
   handleScoreSelected,
   handleNotesChanged,
+  handleDelete,
+  handleAdd,
   bgcolor,
   visible
 }) {
@@ -318,7 +373,7 @@ function SingleEntry({
 
             <button
             type="button"
-            onClick={(event) =>handleScoreCleared({section, prompt})}
+            onClick={(event) =>handleDelete({section, prompt})}
             className="p-2 bg-gray-100 rounded hover:bg-gray-200"
             >
               ❌

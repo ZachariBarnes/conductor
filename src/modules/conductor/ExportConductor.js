@@ -18,10 +18,12 @@ export function ExportConductor() {
       let addedWeight = 0;
       let a = `##### ${group}\n`;
       const b = groups[group].map((item) => {
+        if(item.score){
         let weight = item.weight!==undefined ? item.weight : 1;
         let v = `* ${item.prompt}\n`;
         if (item.score) {
-          v += `    - ${Array(item.score).fill("★").join("")}`;
+          let scoreArray = Array(item.score).slice(0);
+          v += `    - ${scoreArray.fill("★").join("")}`;
           overallScore+=(item.score*weight);
           addedWeight+=weight>1?weight:0;
         }
@@ -29,6 +31,8 @@ export function ExportConductor() {
           v += `    - ${item.notes}`;
         }
         return v;
+      }
+      return ''
       });
       overallScore = Math.round(overallScore/(groups[group].length+addedWeight));
       if(overallScore>0){

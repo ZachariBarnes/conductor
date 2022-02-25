@@ -2,7 +2,7 @@
 
 A simple interview notes keeper.
 
-[See it live](https://adept.work/conductor).
+[See it live](https://zacharibarnes.github.io/conductor/).
 
 ## Tech
 
