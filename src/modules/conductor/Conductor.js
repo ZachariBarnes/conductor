@@ -13,6 +13,8 @@ import {
   addItem,
   clearItem,
   removeItem,
+  clearAll,
+  clearState,
   resetApp,
   updateNotes,
   updateWeight,
@@ -28,75 +30,76 @@ export function Conductor() {
   const [openMenu, setOpenMenu] = useState(true);
   const [visibleSections, setVisibleSections] = useState([]);
   const sections = useSelector((state) => state.data)
-  useEffect(() => {
-    // const jsonData = getData().data;
-    //setData(jsonData);
+  useEffect(() => {}, []);
 
-  }, []);
-
-  if (!sections || !sections.length) {
-    const jsonData = getData().data;
-    //setData(jsonData);
-    jsonData.content.forEach(function useSections(section){
+  const useData = ()=>{
+    if(!sections?.length){
+      const jsonData = getData().data;
+      jsonData.content.forEach(function useSections(section){
         const dispatch = useDispatch();
         const handleNewSection = React.useCallback(
           function handleAddSection(value) {
             dispatch(addSection({ section, score: value }));
-          },
-          [section, dispatch]
+          }, [section, dispatch]
         );
       handleNewSection(section);
-    });
-    // setData(content);
+      });
+    }
   }
 
+  useData();
   // console.log("data", data);
   // console.log("state",content)
-  return (
-    <div>
-      <ConductorHeader menu={openMenu} setMenu={setOpenMenu} />
+  if(sections?.length){
+    return (
+      <div>
+        <ConductorHeader menu={openMenu} setMenu={setOpenMenu} />
 
-      <div className="flex px-4">
-        {openMenu && <SectionMenu content={sections} menu={openMenu} />}
+        <div className="flex px-4">
+          {openMenu && <SectionMenu content={sections} menu={openMenu} />}
 
-        <div className="container px-4 mx-auto">
-          {sections.map((dat, index) => {
-            // console.log("dat", dat);
-            // if((typeof dat) === "object")
-            //   console.log(Object.keys(dat));
-            let visibility = visibleSections[index] || { section:dat.section, visible: dat.visible };
-            if(index>visibleSections.length-1){
-              visibleSections.push(visibility);
-              setVisibleSections(visibleSections);
-            }
-            return (
-              <div
-                id={slugify(dat.section)}
-                key={dat.section}
-                className="border-b-2 border-gray-600 last:border-b-0"
-              >
-               <details {...getDetailsSection(visibility.visible)}>
-                  <summary>
-                    <button className="mt-4 mb-4 text-lg font-bold"
-                        title="Click to expand/collapse"
-                        onClick={(_e)=>{
-                          visibility.visible=!visibility.visible;
-                          setVisibleSections([...visibleSections]);
-                          return false;
-                          }}>
-                      {dat.section}
-                    </button>
-                  </summary>
-                  <b>Weight</b>
-                  {displaySection(dat,visibility)}
-                </details>
-              </div>
-            );
-          })}
+          <div className="container px-4 mx-auto">
+            {sections.map((dat, index) => {
+              // console.log("dat", dat);
+              // if((typeof dat) === "object")
+              //   console.log(Object.keys(dat));
+              let visibility = visibleSections[index] || { section:dat.section, visible: dat.visible };
+              if(index>visibleSections.length-1){
+                visibleSections.push(visibility);
+                setVisibleSections(visibleSections);
+              }
+              return (
+                <div
+                  id={slugify(dat.section)}
+                  key={dat.section}
+                  className="border-b-2 border-gray-600 last:border-b-0"
+                >
+                <details {...getDetailsSection(visibility.visible)}>
+                    <summary>
+                      <button className="mt-4 mb-4 text-lg font-bold"
+                          title="Click to expand/collapse"
+                          onClick={(_e)=>{
+                            visibility.visible=!visibility.visible;
+                            setVisibleSections([...visibleSections]);
+                            return false;
+                            }}>
+                        {dat.section}
+                      </button>
+                    </summary>
+                    <b>Weight</b>
+                    {displaySection(dat,visibility)}
+                  </details>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
+   else{
+    return <div>Loading...</div>
+    }
 }
 
 
@@ -141,9 +144,15 @@ function ConductorHeader({ menu, setMenu }) {
 function SectionMenu({ content, menu }) {
   const dispatch = useDispatch();
 
+  function handleClearAll() {
+    dispatch(clearAll());
+  }
+
   function handleReset() {
+    dispatch(clearState());
     dispatch(resetApp());
   }
+
 
   const menuClassnames = classnames("pb-4", {
     "sticky top-0 h-screen": true,
@@ -167,6 +176,12 @@ function SectionMenu({ content, menu }) {
       >
         Export to Markdown
       </Link>
+      <button
+        onClick={handleClearAll}
+        className="block w-full p-2 my-2 text-sm text-center text-white bg-gray-600 rounded shadow-sm hover:bg-gray-700"
+      >
+        Clear all
+      </button>
       <button
         onClick={handleReset}
         className="block w-full p-2 my-2 text-sm text-center text-white bg-gray-600 rounded shadow-sm hover:bg-gray-700"

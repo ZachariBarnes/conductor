@@ -22,7 +22,7 @@ export function clearItem({ section, prompt }) {
 export const REMOVE_ITEM = "REMOVE_ITEM";
 export function removeItem({ section, prompt }) {
   console.log(`Remove item: Section: ${section}, Prompt: ${prompt}`);
-  return { type: CLEAR_ITEM_AND_NOTES, payload: { section, prompt } };
+  return { type: REMOVE_ITEM, payload: { section, prompt } };
 }
 
 export const ADD_ITEM = "ADD_ITEM";
@@ -40,4 +40,14 @@ export function addSection({ section}) {
 export const RESET_APP = "RESET_APP";
 export function resetApp() {
   return { type: RESET_APP };
+}
+
+export const CLEAR_ALL = "CLEAR_ALL";
+export function clearAll() {
+  return { type: CLEAR_ALL };
+}
+
+export const CLEAR_STATE = "CLEAR_STATE";
+export function clearState() {
+  return { type: CLEAR_STATE };
 }

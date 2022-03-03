@@ -1,19 +1,29 @@
+import { initalState } from "../../data/initialState";
+import _ from 'lodash';
 import {
   ADD_ITEM_SCORE,
   CLEAR_ITEM_AND_NOTES,
   RESET_APP,
+  CLEAR_ALL,
   UPDATE_NOTES,
   UPDATE_WEIGHT,
   ADD_ITEM,
   REMOVE_ITEM,
   ADD_SECTION,
+  CLEAR_STATE
 } from "../actions/data-actions";
 
 function getInitialState() {
   return [];
 }
 
-function resetAll(state){
+function getBaseState(){
+  console.log("getInitialState", initalState.length);
+  return [...initalState]
+}
+
+function clearAll(oldState){
+  const state = _.cloneDeep(oldState);
   const nextState = state.map(section=>{
     section.prompts = section.prompts.map(question=> {return {prompt: question.prompt}});
     return section;
@@ -21,20 +31,23 @@ function resetAll(state){
   return nextState;
 }
 
-function getNextState(state, payload){
+function getNextState(oldState, payload){
+  const state = _.cloneDeep(oldState);
   const { section } = payload;
   const nextState = state.filter(item=>item.section !== section);
   const sectIdx = state.findIndex((item) => item.section === section);
   return { nextState, sectIdx, ...payload };
 }
 
-function remove(state, section, prompt) {
+function remove(oldState, section, prompt) {
+  const state = _.cloneDeep(oldState);
   return state.filter(
     (item) => !(item.section === section && item.prompt === prompt)
   );
 }
 
-function removePrompt(state, payload) {
+function removePrompt(oldState, payload) {
+  const state = _.cloneDeep(oldState);
   const { nextState, sectIdx, prompt } = getNextState(state, payload);
   const newSection = removePropmtFromSection(state[sectIdx], prompt);
   nextState.splice(sectIdx, 0, newSection);
@@ -48,7 +61,8 @@ function removePropmtFromSection(section, prompt) {
     return section
 }
 
-function clearPrompt(state, payload) {
+function clearPrompt(oldState, payload) {
+  const state = _.cloneDeep(oldState);
   const { nextState, sectIdx, prompt } = getNextState(state, payload);
   const thisSection = clearPropmtValuesInSection(state[sectIdx], prompt);
   nextState.splice(sectIdx, 0, thisSection);
@@ -63,21 +77,24 @@ function clearPropmtValuesInSection(section, prompt) {
   return section;
 }
 
-function addScore(state, payload){
+function addScore(oldState, payload){
+  const state = _.cloneDeep(oldState);
   const { nextState, sectIdx, prompt, score } = getNextState(state, payload);
   const thisSection = addParamToPrompt(state[sectIdx], prompt, 'score', score);
   nextState.splice(sectIdx, 0, thisSection);
   return nextState;
 }
 
-function addNotes(state, payload){
+function addNotes(oldState, payload){
+  const state = _.cloneDeep(oldState);
   const { nextState, sectIdx, prompt, notes } = getNextState(state, payload);
   const thisSection = addParamToPrompt(state[sectIdx], prompt, 'notes', notes);
   nextState.splice(sectIdx, 0, thisSection);
   return nextState;
 }
 
-function updateWeight(state, payload){
+function updateWeight(oldState, payload){
+  const state = _.cloneDeep(oldState);
   const { nextState, sectIdx, prompt, weight } = getNextState(state, payload);
   const thisSection = addParamToPrompt(state[sectIdx], prompt, 'weight', weight);
   nextState.splice(sectIdx, 0, thisSection);
@@ -90,7 +107,8 @@ function addParamToPrompt(section, prompt,paramName, paramValue) {
   return section;
 }
 
-function removeSection(state, payload) {
+function removeSection(oldState, payload) {
+  const state = _.cloneDeep(oldState);
   const { section } = payload;
   return state.filter(
     (item) => {
@@ -107,7 +125,7 @@ export function data(state = getInitialState(), action) {
     }
     case ADD_ITEM:{
       // TODO - add section item
-      return [state]    
+
     }
     case ADD_ITEM_SCORE:{
       return addScore(state, action.payload);
@@ -124,8 +142,14 @@ export function data(state = getInitialState(), action) {
     case CLEAR_ITEM_AND_NOTES:{
       return clearPrompt(state, action.payload);
     }
+    case CLEAR_ALL: {
+      return clearAll(state);
+    }
+    case CLEAR_STATE:{
+      return getInitialState();
+    }
     case RESET_APP: {
-      return resetAll(state);
+      return getBaseState();
     }
     default:
       return state;
