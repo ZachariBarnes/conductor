@@ -1,41 +1,45 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { uniqBy, groupBy } from "lodash";
+import { uniqBy } from "lodash";
 
 export function ExportConductor() {
   const items = useSelector((state) => state.data);
 
   const totalResponses = items.length;
-  console.log(items);
   const sections = uniqBy(items, (a) => a.section);
   const totalSections = sections.length;
 
-  const groups = groupBy(items, "section");
-  console.log(groups);
-  const content = Object.keys(groups)
+  const content = '## Summary' + sections
     .map((group) => {
       let overallScore = 0;
       let addedWeight = 0;
-      let a = `##### ${group}\n`;
-      const b = groups[group].map((item) => {
-        let weight = item.weight!==undefined ? item.weight : 1;
+      let a = `\n#### ${group.section}\n`;
+      const answerCount = group.prompts.filter(q=>q.score).length;
+      if(answerCount){
+      const b = group.prompts.map((item) => {
+        if(item.score){
+        let weight = item.weight || 1;
         let v = `* ${item.prompt}\n`;
         if (item.score) {
-          v += `    - ${Array(item.score).fill("★").join("")}`;
+          let scoreArray = Array(item.score).slice(0);
+          v += `    - ${scoreArray.fill("★").join("")}`;
           overallScore+=(item.score*weight);
-          addedWeight+=weight>1?weight:0;
+          addedWeight+=(weight>1?weight-1:0);
         }
         if (item.notes) {
           v += `    - ${item.notes}`;
         }
         return v;
-      });
-      overallScore = Math.round(overallScore/(groups[group].length+addedWeight));
+      }
+      return ''
+      }).filter(q=>q.length);
+      overallScore = Math.round(overallScore/(answerCount+addedWeight));
       if(overallScore>0){
-        a += getStars(overallScore);
+        a += " Average: "+ getStars(overallScore);
       }
       return [a, ...b].join("\n");
-    })
+    } else return null;
+    }).filter(q=>q!==null)
     .join("\n");
 
   return (
