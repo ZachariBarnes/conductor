@@ -284,8 +284,8 @@ function Entry({ section, entry, bgcolor, visible }) {
       prompt={entry.prompt}
       section={section}
       score={entry.score}
-      notes={notes}
-      weight={weight}
+      notes={entry.notes}
+      weight={entry.weight||1}
       handleWeightChanged={handleWeightChanged}
       handleScoreCleared={handleScoreCleared}
       handleScoreSelected={handleScoreSelected}
@@ -405,7 +405,7 @@ function SingleEntry({
               onChange={(e) => handleNotesChanged(e.target.value)}
             />
           )}
-          {!addNotes && notes.length > 0 && (
+          {!addNotes && notes?.length > 0 && (
             <div
               className="p-4 bg-gray-200"
               dangerouslySetInnerHTML={{ __html: newlinebr(notes) }}

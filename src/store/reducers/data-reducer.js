@@ -28,7 +28,7 @@ function clearAll(oldState){
     section.prompts = section.prompts.map(question=> {return {prompt: question.prompt}});
     return section;
   });
-  return nextState;
+  return [...nextState];
 }
 
 function getNextState(oldState, payload){
@@ -123,10 +123,8 @@ export function data(state = getInitialState(), action) {
       const nextState = removeSection(state, action.payload);
       return [...nextState, action.payload];
     }
-    case ADD_ITEM:{
+    case ADD_ITEM:
       // TODO - add section item
-
-    }
     case ADD_ITEM_SCORE:{
       return addScore(state, action.payload);
     }
