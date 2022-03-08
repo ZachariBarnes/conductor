@@ -41,9 +41,6 @@ export const initalState = [
           "prompt": "What is the \"Final\" keyword used for in Java?"
         },
         {
-          "prompt": "What is the difference between an abstract class and an interface?"
-        },
-        {
           "prompt": "What is a Java Stream?"
         },
         {
@@ -69,7 +66,7 @@ export const initalState = [
           "prompt": "What is an enum and when would you use one?"
         },
         {
-          "prompt": "What is asynchronous programming?"
+          "prompt": "Compare and contrast synchronous and asynchronous programming?"
         },
         {
           "prompt": "What are Futures in Java?"
@@ -195,8 +192,8 @@ export const initalState = [
       ]
     },
     {
-      "section": "JavaScript",
-      "visible": false,
+      "section": "JavaScript/NodeJs",
+      "visible": true,
       "prompts": [
         {
           "prompt": "How are `==` and `===` equality operators different?"
@@ -226,6 +223,9 @@ export const initalState = [
           "prompt": "What is the difference between an ES6 arrow function and a regular function?"
         },
         {
+          "prompt": "What is an aynonomous function? How is it used?"
+        },
+        {
           "prompt": "What are pros and cons of a JavaScript transpiler like Babel?"
         },
         {
@@ -242,18 +242,9 @@ export const initalState = [
         },
         {
           "prompt": "What is the purpose of the `bind` function?"
-        }
-      ]
-    },
-    {
-      "section": "Node",
-      "visible": false,
-      "prompts": [
-        {
-          "prompt": "How is the single threaded nature of JavaScript different compared to other solutions?"
         },
         {
-          "prompt": "What are some common Node packages or Libraries and what do they do?"
+          "prompt": "How is the single threaded nature of JavaScript different compared to other solutions?"
         },
         {
           "prompt": "Describe examples of blocking and non-blocking Node APIs"
@@ -266,6 +257,9 @@ export const initalState = [
         },
         {
           "prompt": "Describe the purpose of `module.exports`"
+        },
+        {
+          "prompt": "What are some common Node packages or Libraries and what do they do?"
         },
         {
           "prompt": "Describe the purposes of well known ecosystem packages, like express, axios, lodash"
@@ -295,19 +289,28 @@ export const initalState = [
           "prompt": "How can re-rendering be controlled?"
         },
         {
-          "prompt": "What is Redux?"
+          "prompt": "What is Redux?",
+          "details": "A state management library for React"
         },
         {
-          "prompt": "What are the three different parts of Redux?"
+          "prompt": "What are the three different parts of Redux?",
+          "details": "Store, Reducer, and Actions"
         },
         {
-          "prompt": "Describe a use case for a higher order component"
+          "prompt": "Describe a use case for a higher order component",
+          "details": "A component that wraps another component and provides additional functionality"
         },
         {
-          "prompt": "What are React hooks?"
+          "prompt": "What are React hooks?",
+          "details": "A set of new features in React 16.8 that let you use state and other React features without writing a class"
         },
         {
-          "prompt": "What are the different parts of Redux?"
+          "prompt":"What are some examples of React hooks?",
+          "details": "useState, useEffect, useContext, useCallback, useMemo, useRef"
+        },
+        {
+          "prompt": "What is a React context?",
+          "details": "A React feature that allows you to pass data through the component tree without having to pass props down manually at every level"
         },
         {
           "prompt": "How are render props used?"
@@ -322,13 +325,11 @@ export const initalState = [
           "prompt": "Describe the difference between class-based React and hooks-based React code"
         },
         {
-          "prompt": "What the do the arguments to `useEffect` determine?"
-        },
-        {
           "prompt": "How useful is Context as a Redux-replacement?"
         },
         {
-          "prompt": "What is the purpose of a library like Immer with React/Redux?"
+          "prompt": "What is the purpose of a library like Immer with React/Redux?",
+          "details": "To make data changes in React/Redux easier"
         },
         {
           "prompt": "Describe an organizational strategy for Redux related code"
@@ -431,9 +432,6 @@ export const initalState = [
         },
         {
           "prompt": "Whats the difference between a Primary Key and a Foreign Key?"
-        },
-        {
-          "prompt": "What are the benefits of using an abstraction ORM?"
         },
         {
           "prompt": "What is the difference between and inner and outer join?"

@@ -5,7 +5,7 @@ import { getData } from "../../api/api";
 import { AppLink } from "../../components/AppLink";
 import { slugify } from "../../helpers/utils";
 import { ScoreMeter } from "../../components/ScoreMeter";
-import { useSelector, useDispatch, useStore } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import {
@@ -242,42 +242,42 @@ function useItemEvents(section, prompt) {
      handleWeightChanged, handleAdd, handleDelete };
 }
 
-function useItem(section, prompt) {
-  const items = useSelector((state) => state.data);
-  return items.find(
-    (item) => item.section === section && item.prompt === prompt
-  );
-}
+// function useItem(section, prompt) {
+//   const items = useSelector((state) => state.data);
+//   return items.find(
+//     (item) => item.section === section && item.prompt === prompt
+//   );
+// }
 
-function getScore(item) {
-  if (item) {
-    console.log(item);
-  }
-  const score = item && item.score ? item.score : 0;
-  if(score)
-  console.log(score);
+// function getScore(item) {
+//   if (item) {
+//     console.log(item);
+//   }
+//   const score = item && item.score ? item.score : 0;
+//   if(score)
+//   console.log(score);
 
-  return score;
+//   return score;
   
-}
+// }
 
-function getWeight(item){
-  const weight = item && item.weight!==undefined ? item.weight : 1;
-  return weight;
-}
+// function getWeight(item){
+//   const weight = item && item.weight!==undefined ? item.weight : 1;
+//   return weight;
+// }
 
-function getNotes(item) {
-  return item && item.notes ? item.notes : "";
-}
+// function getNotes(item) {
+//   return item && item.notes ? item.notes : "";
+// }
 
 function Entry({ section, entry, bgcolor, visible }) {
-  const item = useItem(section, entry);
+  // const item = useItem(section, entry);
   const { handleScoreSelected, handleScoreCleared, 
     handleNotesChanged, handleWeightChanged, handleAdd, handleDelete } =
     useItemEvents(section, entry.prompt);
-  const score = getScore(item);
-  const notes = getNotes(item);
-  const weight = getWeight(item);
+  // const score = getScore(item);
+  // const notes = getNotes(item);
+  // const weight = getWeight(item);
   return (
     <MemoSingleEntry
       entry={entry}
