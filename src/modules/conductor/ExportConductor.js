@@ -8,8 +8,9 @@ export function ExportConductor() {
   const totalResponses = items.length;
   const sections = uniqBy(items, (a) => a.section);
   const totalSections = sections.length;
-
-  const content = '## Summary' + sections
+  let totalScore = 0;
+  let totalWeight = 0;
+  const sectionSummaries = sections
     .map((group) => {
       let overallScore = 0;
       let addedWeight = 0;
@@ -25,6 +26,8 @@ export function ExportConductor() {
           v += `    - ${scoreArray.fill("★").join("")}`;
           overallScore+=(item.score*weight);
           addedWeight+=(weight>1?weight-1:0);
+          totalScore+=(item.score*weight);
+          totalWeight+=(weight||1);
         }
         if (item.notes) {
           v += `    - ${item.notes}`;
@@ -33,14 +36,18 @@ export function ExportConductor() {
       }
       return ''
       }).filter(q=>q.length);
-      overallScore = Math.round(overallScore/(answerCount+addedWeight));
+      overallScore = overallScore/(answerCount+addedWeight);
       if(overallScore>0){
-        a += " Average: "+ getStars(overallScore);
+        a += ` Average: ${getStars(overallScore)} (${(overallScore * 100 / 5).toFixed(0)}%)`;
       }
       return [a, ...b].join("\n");
     } else return null;
     }).filter(q=>q!==null)
     .join("\n");
+    const overallAverage = totalScore / totalWeight;
+    const overallSummary = `\nOverall Summary: ${getStars(overallAverage)} (${(overallAverage * 100 / 5).toFixed(0)}%)\n`;
+    console.log( `Total Score: ${totalScore}, Total Weight: ${totalWeight}, Total Average: ${overallAverage}`);
+    const content = '## Summary'+ overallSummary + sectionSummaries;
 
   return (
     <div>
@@ -66,7 +73,8 @@ export function ExportConductor() {
   );
 }
 
-const getStars = (score) => {
+const getStars = (incommingScore) => {
+  let score = Math.round(incommingScore)
   if(score>5){
     score=5;
   }

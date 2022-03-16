@@ -10,7 +10,7 @@ import {
   ADD_ITEM,
   REMOVE_ITEM,
   ADD_SECTION,
-  CLEAR_STATE
+  CLEAR_STATE,
 } from "../actions/data-actions";
 
 function getInitialState() {
@@ -37,13 +37,6 @@ function getNextState(oldState, payload){
   const nextState = state.filter(item=>item.section !== section);
   const sectIdx = state.findIndex((item) => item.section === section);
   return { nextState, sectIdx, ...payload };
-}
-
-function remove(oldState, section, prompt) {
-  const state = _.cloneDeep(oldState);
-  return state.filter(
-    (item) => !(item.section === section && item.prompt === prompt)
-  );
 }
 
 function removePrompt(oldState, payload) {
@@ -77,6 +70,19 @@ function clearPropmtValuesInSection(section, prompt) {
   return section;
 }
 
+function addPrompt(oldState, payload){
+  const state = _.cloneDeep(oldState);
+  const { nextState, sectIdx, prompt, details } = getNextState(state, payload);
+  const thisSection = state[sectIdx];
+  const newPrompt = { prompt };
+  if(details){
+    newPrompt.details = details;
+  }
+  thisSection.prompts.push(newPrompt)
+  nextState.splice(sectIdx, 0, thisSection);
+  return nextState;
+}
+
 function addScore(oldState, payload){
   const state = _.cloneDeep(oldState);
   const { nextState, sectIdx, prompt, score } = getNextState(state, payload);
@@ -107,6 +113,17 @@ function addParamToPrompt(section, prompt,paramName, paramValue) {
   return section;
 }
 
+function addSection(state, payload){
+  console.log("Logging Payload: ", payload);
+  if(!state.find(category=>category.section === payload.section)){
+  const nextState = removeSection(state, payload);
+  return [...nextState, payload];
+  }
+  else {
+    return state;
+  }
+}
+
 function removeSection(oldState, payload) {
   const state = _.cloneDeep(oldState);
   const { section } = payload;
@@ -119,12 +136,10 @@ function removeSection(oldState, payload) {
 
 export function data(state = getInitialState(), action) {
   switch (action.type) {
-    case ADD_SECTION:{
-      const nextState = removeSection(state, action.payload);
-      return [...nextState, action.payload];
-    }
+    case ADD_SECTION:
+      return addSection(state, action.payload);
     case ADD_ITEM:
-      // TODO - add section item
+      return addPrompt(state, action.payload); //expects seciont, prompt and details
     case ADD_ITEM_SCORE:{
       return addScore(state, action.payload);
     }

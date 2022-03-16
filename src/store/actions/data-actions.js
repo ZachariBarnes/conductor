@@ -32,8 +32,8 @@ export function addItem({ section, prompt }) {
 }
 
 export const ADD_SECTION = "ADD_SECTION";
-export function addSection({ section}) {
-  // console.log(`Add new Section: ${section.section}`);
+export function addSection({section}) {
+  console.log(`Add new Section: ${section}`);
   return { type: ADD_SECTION, payload: section };
 }
 

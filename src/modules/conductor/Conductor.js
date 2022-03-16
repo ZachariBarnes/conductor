@@ -8,6 +8,7 @@ import { ScoreMeter } from "../../components/ScoreMeter";
 import { useSelector, useDispatch } from "react-redux";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
+import { AddSectionModal } from "../AddSectionModal";
 import {
   addItemNotes,
   addItem,
@@ -32,6 +33,9 @@ export function Conductor() {
   const sections = useSelector((state) => state.data)
   useEffect(() => {}, []);
 
+  
+  const [modalIsOpen,setModalIsOpen] = useState(false);
+
   const useData = ()=>{
     if(!sections?.length){
       const jsonData = getData().data;
@@ -48,8 +52,6 @@ export function Conductor() {
   }
 
   useData();
-  // console.log("data", data);
-  // console.log("state",content)
   if(sections?.length){
     return (
       <div>
@@ -60,9 +62,6 @@ export function Conductor() {
 
           <div className="container px-4 mx-auto">
             {sections.map((dat, index) => {
-              // console.log("dat", dat);
-              // if((typeof dat) === "object")
-              //   console.log(Object.keys(dat));
               let visibility = visibleSections[index] || { section:dat.section, visible: dat.visible };
               if(index>visibleSections.length-1){
                 visibleSections.push(visibility);
@@ -92,6 +91,13 @@ export function Conductor() {
                 </div>
               );
             })}
+            <div
+              id={slugify('Add New Section')}
+              key={'Add New Section'}
+              className="border-b-2 border-gray-600 last:border-b-0"
+            >
+              <AddSectionModal isOpen={modalIsOpen} onRequestClose={()=> setModalIsOpen(false)}/>
+            </div> 
           </div>
         </div>
       </div>
@@ -108,7 +114,6 @@ function getDetailsSection(visible){
 }
 
 function displaySection(dat, visibility, data){
-  // console.log("dat:", dat);
   try{
     const colors = ['white', 'lightgrey'];
     return dat.prompts.map((entry) => (
@@ -153,7 +158,10 @@ function SectionMenu({ content, menu }) {
     dispatch(resetApp());
   }
 
-
+  const sections = content.map((dat) => dat.section);
+  if(!sections.filter(dat=>dat==="Add New Section").length){
+    sections.push('Add New Section');
+  }
   const menuClassnames = classnames("pb-4", {
     "sticky top-0 h-screen": true,
   });
@@ -162,10 +170,10 @@ function SectionMenu({ content, menu }) {
     <div className={menuClassnames}>
       <h1 className="text-lg font-bold">Table of Contents</h1>
       <ul className="pl-2">
-        {content.map((dat) => {
+        {sections.map((section) => {
           return (
-            <li key={dat.section}>
-              <AppLink href={`#${slugify(dat.section)}`}>{dat.section}</AppLink>
+            <li key={section}>
+              <AppLink href={`#${slugify(section)}`}>{section}</AppLink>
             </li>
           );
         })}
@@ -242,42 +250,10 @@ function useItemEvents(section, prompt) {
      handleWeightChanged, handleAdd, handleDelete };
 }
 
-// function useItem(section, prompt) {
-//   const items = useSelector((state) => state.data);
-//   return items.find(
-//     (item) => item.section === section && item.prompt === prompt
-//   );
-// }
-
-// function getScore(item) {
-//   if (item) {
-//     console.log(item);
-//   }
-//   const score = item && item.score ? item.score : 0;
-//   if(score)
-//   console.log(score);
-
-//   return score;
-  
-// }
-
-// function getWeight(item){
-//   const weight = item && item.weight!==undefined ? item.weight : 1;
-//   return weight;
-// }
-
-// function getNotes(item) {
-//   return item && item.notes ? item.notes : "";
-// }
-
 function Entry({ section, entry, bgcolor, visible }) {
-  // const item = useItem(section, entry);
   const { handleScoreSelected, handleScoreCleared, 
     handleNotesChanged, handleWeightChanged, handleAdd, handleDelete } =
     useItemEvents(section, entry.prompt);
-  // const score = getScore(item);
-  // const notes = getNotes(item);
-  // const weight = getWeight(item);
   return (
     <MemoSingleEntry
       entry={entry}
@@ -317,6 +293,7 @@ function getWeightWidget(promptObj, prompt, handleWeightChanged, weight, setWeig
     </div>
   )
 }
+
 
 function SingleEntry({
   entry,
@@ -383,7 +360,7 @@ function SingleEntry({
                   <ChevronDown size="4" />
                 </div>
               )}
-              📝
+              {!addNotes ? '📝' : /*'💾'*/'📝'}
             </button>
 
             <button

@@ -9,6 +9,7 @@ import {
   Redirect,
 } from "react-router-dom";
 import { ExportConductor } from "./modules/conductor/ExportConductor";
+import { AddSectionModal } from "./modules/AddSectionModal";
 import { Conductor } from "./modules/conductor/Conductor";
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
               <ExportConductor />
             </Route>
             <Route path="/conductor">
-              <Conductor />
+              <Conductor props={AddSectionModal} />
             </Route>
             <Redirect from="/" to="/conductor" />
           </Switch>
