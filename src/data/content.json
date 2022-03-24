@@ -200,7 +200,7 @@
               ]
           },
           {
-              "section": "JavaScript/NodeJs",
+              "section": "JavaScript/NodeJS",
               "visible": true,
               "prompts":
               [
@@ -436,7 +436,7 @@
               ]
           },
           {
-              "section": "Database",
+              "section": "Databases",
               "visible": true,
               "prompts":
               [

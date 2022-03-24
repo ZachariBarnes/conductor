@@ -196,7 +196,7 @@ export const initalState = [
       ]
   },
   {
-      "section": "JavaScript/NodeJs",
+      "section": "JavaScript/NodeJS",
       "visible": true,
       "prompts":
       [
@@ -432,7 +432,7 @@ export const initalState = [
       ]
   },
   {
-      "section": "Database",
+      "section": "Databases",
       "visible": true,
       "prompts":
       [

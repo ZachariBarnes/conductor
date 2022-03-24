@@ -14,7 +14,7 @@ export function ExportConductor() {
     .map((group) => {
       let overallScore = 0;
       let addedWeight = 0;
-      let a = `\n#### ${group.section}\n`;
+      let a = `\n#### ${group.section}:`;
       const answerCount = group.prompts.filter(q=>q.score).length;
       if(answerCount){
       const b = group.prompts.map((item) => {
@@ -38,16 +38,15 @@ export function ExportConductor() {
       }).filter(q=>q.length);
       overallScore = overallScore/(answerCount+addedWeight);
       if(overallScore>0){
-        a += ` Average: ${getStars(overallScore)} (${(overallScore * 100 / 5).toFixed(0)}%)`;
+        a += ` ${getStars(overallScore)} (${(overallScore * 100 / 5).toFixed(0)}%)`;
       }
       return [a, ...b].join("\n");
     } else return null;
     }).filter(q=>q!==null)
     .join("\n");
     const overallAverage = totalScore / totalWeight;
-    const overallSummary = `\nOverall Summary: ${getStars(overallAverage)} (${(overallAverage * 100 / 5).toFixed(0)}%)\n`;
-    console.log( `Total Score: ${totalScore}, Total Weight: ${totalWeight}, Total Average: ${overallAverage}`);
-    const content = '## Summary'+ overallSummary + sectionSummaries;
+    const overallSummary = `\n## Overall Summary: ${getStars(overallAverage)} (${(overallAverage * 100 / 5).toFixed(0)}%)\n`;
+    const content =overallSummary + sectionSummaries;
 
   return (
     <div>
